@@ -9,6 +9,7 @@
 package org.jboss.tools.openshift.internal.ui.explorer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,12 +39,11 @@ import com.openshift.restclient.model.IService;
  */
 public class OpenShiftExplorerContentProvider extends BaseExplorerContentProvider {
 	
-	private Map<IProject, List<Deployment>> deploymentsByProject = new HashMap<>();
+	private Map<IProject, Collection<Deployment>> deploymentsByProject = new HashMap<>();
 	private Map<IService, Deployment> deploymentByService = new HashMap<>();
 	
 	@Override
 	protected void handleConnectionChanged(IConnection connection, String property, Object oldValue, Object newValue) {
-       
 		if (!(connection instanceof Connection)) {
 			return;
 		}
@@ -65,6 +65,7 @@ public class OpenShiftExplorerContentProvider extends BaseExplorerContentProvide
 			super.handleConnectionChanged(connection, property, oldValue, newValue);
 		}
 	}
+
 	private void handleAddResource(IResource resource) {
 		switch(resource.getKind()) {
 		case ResourceKind.SERVICE:
@@ -192,7 +193,6 @@ public class OpenShiftExplorerContentProvider extends BaseExplorerContentProvide
 				}
 				WatchManager.getInstance().startWatch(project);
 				return mapper.getDeployments().toArray();
-
 			} else if (parentElement instanceof Deployment) {
 				return ((Deployment) parentElement).getPods().toArray();
 			}

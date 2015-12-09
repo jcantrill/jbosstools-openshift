@@ -10,18 +10,17 @@
  ******************************************************************************/
 package org.jboss.tools.openshift.internal.ui.explorer;
 
-<<<<<<< HEAD
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-=======
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
->>>>>>> [JBIDE-19178] Simple deployment view
+
+import org.jboss.tools.common.ui.databinding.ObservableUIPojo;
 
 import com.openshift.restclient.model.IPod;
+
+import com.openshift.restclient.model.IBuild;
+import com.openshift.restclient.model.IReplicationController;
 import com.openshift.restclient.model.IService;
 import com.openshift.restclient.model.route.IRoute;
 
@@ -32,16 +31,23 @@ import com.openshift.restclient.model.route.IRoute;
  * @author jeff.cantrill
  *
  */
-public class Deployment {
+public class Deployment extends ObservableUIPojo {
 
 	private IService service;
 	private Set<IRoute> routes;
 	private Set<IPod> pods;
+	private Set<IBuild> builds;
+	private Set<IReplicationController> rcs;
 	
-	public Deployment(IService service, Collection<IRoute> routes, Collection<IPod> pods) {
+	public Deployment(IService service, Collection<IRoute> routes, Collection<IBuild> builds, Collection<IPod> pods, Collection<IReplicationController> rcs) {
 		this.service = service;
+		this.builds = builds == null ? new HashSet<>() :new HashSet<>(builds);
 		this.pods = new HashSet<>(pods);
 		this.routes = new HashSet<>(routes);
+//		this.rcs = new HashSet<>(rcs);
+	}
+	public Collection<IBuild> getBuilds() {
+		return Collections.unmodifiableSet(builds);
 	}
 	
 	public Collection<IPod> getPods() {
@@ -52,6 +58,10 @@ public class Deployment {
 	}
 	public IService getService() {
 		return this.service;
+	}
+
+	public Collection<IReplicationController> getReplicationController() {
+		return this.rcs;
 	}
 
 	public void add(IPod pod) {

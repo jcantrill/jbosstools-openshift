@@ -18,6 +18,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.jboss.tools.openshift.core.OpenShiftAPIAnnotations;
 import org.jboss.tools.openshift.core.connection.Connection;
 import org.jboss.tools.openshift.core.connection.ConnectionsRegistryUtil;
 import org.jboss.tools.openshift.internal.common.ui.utils.UIUtils;
@@ -32,7 +33,6 @@ import com.openshift.restclient.model.IPod;
  */
 public class PodLogsHandler extends AbstractOpenShiftCliHandler {
 	private static final String [] STATES = new String [] {"Running", "Succeeded", "Failed"};
-	private static final String BUILDNAME_ANNOTATION = "openshift.io/build.name";
 
 	@Override
 	protected void handleEvent(ExecutionEvent event){
@@ -67,7 +67,7 @@ public class PodLogsHandler extends AbstractOpenShiftCliHandler {
 			Connection connection = ConnectionsRegistryUtil.safeGetConnectionFor(build);
 			List<IPod> pods = connection.getResources(ResourceKind.POD, build.getNamespace());
 			for (IPod pod : pods) {
-				if(buildName.equals(pod.getAnnotation(BUILDNAME_ANNOTATION))) {
+				if(buildName.equals(pod.getAnnotation(OpenShiftAPIAnnotations.BUILD_NAME))) {
 					return pod;
 				}
 			}
