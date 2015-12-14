@@ -10,10 +10,16 @@
  ******************************************************************************/
 package org.jboss.tools.openshift.internal.ui.explorer;
 
+<<<<<<< HEAD
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+=======
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+>>>>>>> [JBIDE-19178] Simple deployment view
 
 import com.openshift.restclient.model.IPod;
 import com.openshift.restclient.model.IService;
