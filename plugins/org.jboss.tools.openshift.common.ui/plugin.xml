@@ -53,6 +53,11 @@
 		id="org.jboss.tools.openshift.ui.connectionEditor" 
 		name="ConnectionEditor" 
 		schema="schema/org.jboss.tools.openshift.ui.connectionEditor.exsd"/>
+
+ 	<extension-point 
+ 		id="org.jboss.tools.openshift.ui.connectionEditor.advanced" 
+ 		name="ConnectionEditorAdvanced" 
+ 		schema="schema/org.jboss.tools.openshift.ui.connectionEditor.advanced.exsd"/>
     
 	<!-- new application wizard extension point -->
 	<extension-point 
@@ -65,6 +70,7 @@
 		id="org.jboss.tools.openshift.ui.importApplicationWizard" 
 		name="ImportApplicationWizard" 
 		schema="schema/org.jboss.tools.openshift.ui.importApplicationWizard.exsd"/>
+ 
 
     <!-- OpenShift Explorer view -->
     <extension

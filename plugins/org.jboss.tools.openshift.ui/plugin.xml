@@ -1264,6 +1264,13 @@
 		</connectionEditor>
 	</extension>
 
+	<extension
+		point="org.jboss.tools.openshift.ui.connectionEditorAdvanced">
+		<connectionEditorAdvanced
+			class="org.jboss.tools.openshift.internal.ui.wizard.connection.AdvancedConnectionEditor">
+		</connectionEditorAdvanced>
+	</extension>
+
 	<!-- application wizard for connections -->
 	<extension
 		point="org.jboss.tools.openshift.ui.newApplicationWizard">

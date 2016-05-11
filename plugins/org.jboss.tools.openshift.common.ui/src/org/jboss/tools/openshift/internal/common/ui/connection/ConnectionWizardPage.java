@@ -77,12 +77,14 @@ import org.jboss.tools.openshift.internal.common.ui.wizard.IConnectionAware;
  * @author Xavier Coulon
  * @contributor Nick Boldt
  */
+
 public class ConnectionWizardPage extends AbstractOpenShiftWizardPage {
 
 	private final ConnectionWizardPageModel pageModel;
 	private ConnectionEditorsStackedView connectionEditors;
 	private StyledText userdocLink;
 	private StyledText signupLink;
+	private ConnectionAdvancedPropertiesView advancedEditors;
 
 	public <C extends IConnection> ConnectionWizardPage(IWizard wizard, IConnectionAware<C> wizardModel) {
 		this(wizard, wizardModel, true);
@@ -296,6 +298,25 @@ public class ConnectionWizardPage extends AbstractOpenShiftWizardPage {
 				, authenticationDetailsContainer
 				, dbc);
 		connectionEditors.createControls();
+		
+		//advanced section
+//		Composite advancedSection = new Group(parent, SWT.NONE);
+//		authenticationDetailsGroup.setText("Authentication");
+//		GridDataFactory.fillDefaults()
+//			.align(SWT.FILL, SWT.FILL).span(3,1).applyTo(advancedSection);
+//		GridLayoutFactory.fillDefaults()
+//			.margins(0, 0).applyTo(advancedSection);
+		// additional nesting required because of https://bugs.eclipse.org/bugs/show_bug.cgi?id=478618
+		Composite advancedSection = new Composite(parent, SWT.None);
+		GridDataFactory.fillDefaults()
+			.align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(advancedSection);
+		this.advancedEditors = new ConnectionAdvancedPropertiesView(
+				connectionFactoryObservable
+				, this
+				, advancedSection
+				, dbc);
+		advancedEditors.createControls();
+		
 	}
 
 	private void showHideSignupLink() {
