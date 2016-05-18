@@ -17,6 +17,7 @@
 		<module>org.jboss.tools.openshift.express.core</module>
 		<module>org.jboss.tools.openshift.express.ui</module>
 		<module>org.jboss.tools.openshift.client</module>
+		<module>org.jboss.tools.openshift.fabric8.client</module>
 		<module>org.jboss.tools.openshift.common.core</module>
 		<module>org.jboss.tools.openshift.common.ui</module>
 		<module>org.jboss.tools.openshift.core</module>

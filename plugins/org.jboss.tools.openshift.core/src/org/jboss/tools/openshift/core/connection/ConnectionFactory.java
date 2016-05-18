@@ -19,7 +19,8 @@ import org.jboss.tools.openshift.core.LazyCredentialsPrompter;
 import org.jboss.tools.openshift.core.LazySSLCertificateCallback;
 import org.jboss.tools.openshift.internal.core.OpenShiftCoreActivator;
 
-import com.openshift.restclient.ClientFactory;
+import com.openshift.restclient.ClientBuilder;
+import com.openshift.restclient.ClientBuilder.ClientType;
 import com.openshift.restclient.IClient;
 import com.openshift.restclient.OpenShiftException;
 
@@ -48,7 +49,9 @@ public class ConnectionFactory implements IConnectionFactory {
 	public Connection create(String url) {
 		try {
 			LazySSLCertificateCallback sslCertCallback = new LazySSLCertificateCallback();
-			IClient client = new ClientFactory().create(url, sslCertCallback);
+			IClient client = new ClientBuilder(url)
+					.sslCertificateCallback(sslCertCallback)
+					.build(ClientType.FABRIC8IO);
 			return new Connection(client, new LazyCredentialsPrompter(), sslCertCallback);
 		} catch (OpenShiftException e) {
 			OpenShiftCoreActivator.pluginLog().logInfo(NLS.bind("Could not create OpenShift connection: Malformed url {0}", url), e);
